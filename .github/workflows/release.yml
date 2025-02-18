@@ -28,6 +28,7 @@ jobs:
           components: clippy, rustfmt
           targets: |
             aarch64-apple-darwin
+            x86_64-apple-darwin
             x86_64-unknown-linux-gnu
             x86_64-pc-windows-msvc
 
@@ -79,7 +80,7 @@ jobs:
 
             ### Downloads
             - Windows: `.msi` installer
-            - macOS: `.dmg` installer and `.app` bundle
+            - macOS: `.dmg` installer and `.app` bundle (Universal Binary - Intel/Apple Silicon)
             - Linux: `.deb` package and `.AppImage` portable executable
 
             ### Notes
@@ -87,7 +88,7 @@ jobs:
             - Assets will be attached automatically after all builds complete
           releaseDraft: true
           prerelease: false
-
+          args: --target universal-apple-darwin
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
