@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+:root {
+    /* Layout and Background */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    /* Primary and Secondary Colors */
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    /* Interactive Elements */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Form and Border */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --input-border: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+
+    /* Hover States */
+    --primary-hover: 221.2 83.2% 47%;
+    --secondary-hover: 210 40% 92%;
+    --accent-hover: 210 40% 92%;
+    --destructive-hover: 0 84.2% 55%;
+    --input-hover: 214.3 31.8% 88%;
+    --border-hover: 214.3 31.8% 88%;
+
+    /* Theme Colors */
+    --current-line: 0 0% 98%;
+    --selection: 230 100% 95%;
+    --comment: 230 20% 40%;
+    --cyan: 180 100% 50%;
+    --green: 120 100% 40%;
+    --orange: 25 100% 50%;
+    --pink: 330 100% 70%;
+    --purple: 270 100% 60%;
+    --red: 0 100% 50%;
+    --yellow: 60 100% 50%;
+    --white: 0 0% 100%;
+
+    /* Interactive States */
+    --cursor: 0 0% 0%;
+    --orange-hover-light: 25 100% 45%;
+}
+
+.dark {
+    /* Layout and Background */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Primary and Secondary Colors */
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Interactive Elements */
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Form and Border */
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --input-border: 217.2 32.6% 20%;
+    --ring: 224.3 76.3% 48%;
+
+    /* Hover States */
+    --primary-hover: 217.2 91.2% 54%;
+    --secondary-hover: 217.2 32.6% 22%;
+    --accent-hover: 217.2 32.6% 22%;
+    --destructive-hover: 0 84.2% 55%;
+    --input-hover: 217.2 32.6% 22%;
+    --border-hover: 217.2 32.6% 22%;
+
+    /* Interactive States */
+    --orange-hover-dark: 25 100% 55%;
+}
+}
+
+* {
+@apply border-border;
+}
+
+body {
+@apply bg-background text-foreground;
+}

@@ -1,0 +1,18 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/register/page": "app/register/page.js",
+  "/forgot-password/page": "app/forgot-password/page.js",
+  "/dashboard/accounting/page": "app/dashboard/accounting/page.js",
+  "/dashboard/customers/page": "app/dashboard/customers/page.js",
+  "/dashboard/inventory/page": "app/dashboard/inventory/page.js",
+  "/dashboard/pos/page": "app/dashboard/pos/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/fee/page": "app/dashboard/fee/page.js",
+  "/dashboard/orders/page": "app/dashboard/orders/page.js",
+  "/dashboard/modules/page": "app/dashboard/modules/page.js",
+  "/dashboard/providers/page": "app/dashboard/providers/page.js",
+  "/dashboard/report/page": "app/dashboard/report/page.js",
+  "/dashboard/procurements/page": "app/dashboard/procurements/page.js",
+  "/dashboard/settings/page": "app/dashboard/settings/page.js"
+}

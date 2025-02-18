@@ -1,0 +1,89 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "identifier": "dev.takk8is.hipos",
+  "productName": "hiPOS",
+  "version": "1.0.0",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../out"
+  },
+  "app": {
+    "windows": [
+      {
+        "fullscreen": true,
+        "height": 768,
+        "width": 1024,
+        "resizable": true,
+        "title": "hiPOS",
+        "decorations": false,
+        "transparent": false,
+        "visible": true,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": {
+        "default-src": [
+          "'self'",
+          "http://localhost:*"
+        ],
+        "img-src": [
+          "'self'",
+          "data:",
+          "https:",
+          "asset:",
+          "http://localhost:*"
+        ],
+        "style-src": [
+          "'self'",
+          "'unsafe-inline'",
+          "http://localhost:*"
+        ],
+        "script-src": [
+          "'self'",
+          "'unsafe-eval'",
+          "'unsafe-inline'",
+          "http://localhost:*"
+        ],
+        "connect-src": [
+          "'self'",
+          "https:",
+          "http:",
+          "wss:",
+          "ws:",
+          "http://localhost:*"
+        ],
+        "font-src": [
+          "'self'",
+          "data:",
+          "https:",
+          "asset:",
+          "http://localhost:*"
+        ]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": [],
+    "externalBin": [],
+    "copyright": "© 2024 David C Cavalcante",
+    "category": "DeveloperTool",
+    "shortDescription": "A modern point-of-sale system",
+    "longDescription": "A modern point-of-sale system built with Next.js and Tauri"
+  },
+  "plugins": {
+    "shell": {
+      "open": true
+    }
+  }
+}
