@@ -1,89 +1,98 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
-  "identifier": "dev.takk8is.hipos",
-  "productName": "hiPOS",
-  "version": "1.0.0",
   "build": {
-    "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
-    "frontendDist": "../out"
+    "beforeDevCommand": "npm run dev",
+    "frontendDist": "../out",
+    "devPath": "http://localhost:3000",
+    "withGlobalTauri": true
   },
-  "app": {
+  "package": {
+    "productName": "hiPOS",
+    "version": "1.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": true
+    },
+    "bundle": {
+      "active": true,
+      "category": "BusinessAndFinance",
+      "copyright": "Copyright © 2025 David C Cavalcante",
+      "deb": {
+        "depends": [
+          "libwebkit2gtk-4.1-0",
+          "libgtk-4-1",
+          "libappindicator3-1",
+          "librsvg2-2"
+        ]
+      },
+      "appimage": {
+        "bundleMediaFramework": true
+      },
+      "externalBin": [],
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "com.hipos.dev",
+      "longDescription": "A modern point-of-sale system for desktop and web",
+      "macOS": {
+        "frameworks": [],
+        "minimumSystemVersion": "10.13",
+        "signing": {
+          "identity": null,
+          "hardened-runtime": true,
+          "entitlements": null,
+          "entitlements-inherit": null,
+          "provisioningProfile": null
+        },
+        "license": null
+      },
+      "resources": [
+        "../out/**/*"
+      ],
+      "shortDescription": "A modern point-of-sale system for desktop and web",
+      "targets": [
+        "app",
+        "deb",
+        "msi",
+        "dmg",
+        "updater"
+      ],
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "http://timestamp.digicert.com",
+        "wix": {
+          "language": [
+            "pt-BR"
+          ]
+        }
+      }
+    },
+    "security": {
+      "csp": null
+    },
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://github.com/Takk8IS/hiPOS/releases/latest/download/latest.json"
+      ],
+      "dialog": true,
+      "pubkey": null
+    },
     "windows": [
       {
-        "fullscreen": true,
-        "height": 768,
-        "width": 1024,
-        "resizable": true,
         "title": "hiPOS",
-        "decorations": false,
-        "transparent": false,
-        "visible": true,
-        "center": true
+        "width": 1200,
+        "height": 800,
+        "resizable": true,
+        "fullscreen": false,
+        "maximized": false
       }
-    ],
-    "security": {
-      "csp": {
-        "default-src": [
-          "'self'",
-          "http://localhost:*"
-        ],
-        "img-src": [
-          "'self'",
-          "data:",
-          "https:",
-          "asset:",
-          "http://localhost:*"
-        ],
-        "style-src": [
-          "'self'",
-          "'unsafe-inline'",
-          "http://localhost:*"
-        ],
-        "script-src": [
-          "'self'",
-          "'unsafe-eval'",
-          "'unsafe-inline'",
-          "http://localhost:*"
-        ],
-        "connect-src": [
-          "'self'",
-          "https:",
-          "http:",
-          "wss:",
-          "ws:",
-          "http://localhost:*"
-        ],
-        "font-src": [
-          "'self'",
-          "data:",
-          "https:",
-          "asset:",
-          "http://localhost:*"
-        ]
-      }
-    }
-  },
-  "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
-    "resources": [],
-    "externalBin": [],
-    "copyright": "© 2024 David C Cavalcante",
-    "category": "DeveloperTool",
-    "shortDescription": "A modern point-of-sale system",
-    "longDescription": "A modern point-of-sale system built with Next.js and Tauri"
-  },
-  "plugins": {
-    "shell": {
-      "open": true
-    }
+    ]
   }
 }
