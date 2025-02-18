@@ -1,16 +1,13 @@
 {
-  "build": {
+"identifier": "com.hipos.dev",
+"productName": "hiPOS",
+"version": "1.0.0",
+"build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
-    "frontendDist": "../out",
-    "devPath": "http://localhost:3000",
-    "withGlobalTauri": true
-  },
-  "package": {
-    "productName": "hiPOS",
-    "version": "1.0.0"
-  },
-  "tauri": {
+    "frontendDist": "../out"
+},
+"tauri": {
     "allowlist": {
       "all": true
     },
