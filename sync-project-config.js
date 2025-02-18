@@ -57,7 +57,7 @@ try {
     // Update tauri.conf.json fields
     tauriConfig.version = projectConfig.version;
     tauriConfig.identifier = projectConfig.identifier;
-    tauriConfig.app.windows[0].title = projectConfig.productName;
+    tauriConfig.tauri.windows[0].title = projectConfig.productName;
 
     writeJsonFile(CONFIG_FILES.tauri, tauriConfig);
 } catch (error) {

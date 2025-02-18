@@ -1,13 +1,13 @@
 {
-"identifier": "com.hipos.dev",
-"productName": "hiPOS",
-"version": "1.0.0",
-"build": {
+  "identifier": "dev.takk8is.hipos",
+  "productName": "hiPOS",
+  "version": "1.0.3",
+  "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
     "frontendDist": "../out"
-},
-"tauri": {
+  },
+  "tauri": {
     "allowlist": {
       "all": true
     },

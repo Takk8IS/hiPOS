@@ -1,6 +1,6 @@
 {
   "name": "hipos",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "private": true,
   "type": "module",
   "description": "A modern, efficient and user-friendly point of sale system built with Next.js and Tauri",

@@ -1,21 +1,20 @@
 {
-"version": "1.0.0",
-"name": "hipos",
-"productName": "hiPOS",
-"description": {
-    "short": "Modern point of sale system",
-    "long": "A modern, efficient and user-friendly point of sale system built with Next.js and Tauri"
-},
-"author": {
-    "name": "David C Cavalcante",
-    "email": "davcavalcante@proton.me",
-    "url": "https://www.linkedin.com/in/hellodav"
-},
-"copyright": "Copyright © 2025 David C Cavalcante",
-"repository": {
-    "type": "git",
-    "url": "https://github.com/Takk8IS/hiPOS"
-},
-"identifier": "dev.takk8is.hipos"
+    "version": "1.0.3",
+    "name": "hipos",
+    "productName": "hiPOS",
+    "description": {
+        "short": "Modern point of sale system",
+        "long": "A modern, efficient and user-friendly point of sale system built with Next.js and Tauri"
+    },
+    "author": {
+        "name": "David C Cavalcante",
+        "email": "davcavalcante@proton.me",
+        "url": "https://www.linkedin.com/in/hellodav"
+    },
+    "copyright": "Copyright © 2025 David C Cavalcante",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Takk8IS/hiPOS"
+    },
+    "identifier": "dev.takk8is.hipos"
 }
-
