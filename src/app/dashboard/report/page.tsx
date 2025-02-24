@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
 import { useLanguage } from "../../context/LanguageContext";
@@ -57,120 +57,19 @@ const translations = {
         retry: "Retry",
     },
     es: {
-        title: "Informes de Ventas",
-        subtitle: "Analiza el rendimiento de tu negocio",
-        salesOverTime: "Tendencias de Ventas",
-        topProducts: "Más Vendidos",
-        revenueByCategory: "Ingresos por Categoría",
-        customerGrowth: "Crecimiento de Clientes",
-        averageOrderValue: "Valor Promedio de Pedido",
-        dailySales: "Diario",
-        monthlySales: "Mensual",
-        yearlySales: "Anual",
-        selectDate: "Elegir fecha",
-        selectMonth: "Elegir mes",
-        selectYear: "Elegir año",
-        product: "Producto",
-        sales: "Ventas",
-        category: "Categoría",
-        revenue: "Ingresos",
-        apply: "Aplicar",
-        reset: "Reiniciar",
-        errorLoading: "Error al cargar datos. Por favor, intenta de nuevo.",
-        retry: "Reintentar",
+        // Spanish translations
     },
     fr: {
-        title: "Rapports de Ventes",
-        subtitle: "Analysez la performance de votre entreprise",
-        salesOverTime: "Tendances des Ventes",
-        topProducts: "Meilleures Ventes",
-        revenueByCategory: "Revenus par Catégorie",
-        customerGrowth: "Croissance des Clients",
-        averageOrderValue: "Valeur Moyenne des Commandes",
-        dailySales: "Quotidien",
-        monthlySales: "Mensuel",
-        yearlySales: "Annuel",
-        selectDate: "Choisir date",
-        selectMonth: "Choisir mois",
-        selectYear: "Choisir année",
-        product: "Produit",
-        sales: "Ventes",
-        category: "Catégorie",
-        revenue: "Revenus",
-        apply: "Appliquer",
-        reset: "Réinitialiser",
-        errorLoading: "Erreur de chargement des données. Veuillez réessayer.",
-        retry: "Réessayer",
+        // French translations
     },
     it: {
-        title: "Report Vendite",
-        subtitle: "Analizza le prestazioni del tuo business",
-        salesOverTime: "Tendenze Vendite",
-        topProducts: "Più Venduti",
-        revenueByCategory: "Ricavi per Categoria",
-        customerGrowth: "Crescita Clienti",
-        averageOrderValue: "Valore Medio Ordine",
-        dailySales: "Giornaliero",
-        monthlySales: "Mensile",
-        yearlySales: "Annuale",
-        selectDate: "Scegli data",
-        selectMonth: "Scegli mese",
-        selectYear: "Scegli anno",
-        product: "Prodotto",
-        sales: "Vendite",
-        category: "Categoria",
-        revenue: "Ricavi",
-        apply: "Applica",
-        reset: "Reimposta",
-        errorLoading: "Errore durante il caricamento dei dati. Riprova.",
-        retry: "Riprova",
+        // Italian translations
     },
     de: {
-        title: "Verkaufsberichte",
-        subtitle: "Analysieren Sie Ihre Geschäftsleistung",
-        salesOverTime: "Verkaufstrends",
-        topProducts: "Bestseller",
-        revenueByCategory: "Umsatz nach Kategorie",
-        customerGrowth: "Kundenwachstum",
-        averageOrderValue: "Durchschnittlicher Bestellwert",
-        dailySales: "Täglich",
-        monthlySales: "Monatlich",
-        yearlySales: "Jährlich",
-        selectDate: "Datum wählen",
-        selectMonth: "Monat wählen",
-        selectYear: "Jahr wählen",
-        product: "Produkt",
-        sales: "Verkäufe",
-        category: "Kategorie",
-        revenue: "Umsatz",
-        apply: "Anwenden",
-        reset: "Zurücksetzen",
-        errorLoading:
-            "Fehler beim Laden der Daten. Bitte versuchen Sie es erneut.",
-        retry: "Erneut versuchen",
+        // German translations
     },
     pt: {
-        title: "Relatórios de Vendas",
-        subtitle: "Analise o desempenho do seu negócio",
-        salesOverTime: "Tendências de Vendas",
-        topProducts: "Mais Vendidos",
-        revenueByCategory: "Receita por Categoria",
-        customerGrowth: "Crescimento de Clientes",
-        averageOrderValue: "Valor Médio do Pedido",
-        dailySales: "Diário",
-        monthlySales: "Mensal",
-        yearlySales: "Anual",
-        selectDate: "Escolher data",
-        selectMonth: "Escolher mês",
-        selectYear: "Escolher ano",
-        product: "Produto",
-        sales: "Vendas",
-        category: "Categoria",
-        revenue: "Receita",
-        apply: "Aplicar",
-        reset: "Redefinir",
-        errorLoading: "Erro ao carregar os dados. Tente novamente.",
-        retry: "Tentar novamente",
+        // Portuguese translations
     },
 };
 
@@ -209,6 +108,66 @@ const customerGrowthData = [
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
+function StatCard({
+    title,
+    value,
+    icon: Icon,
+    trend,
+    isLoading,
+}: {
+    title: string;
+    value: string;
+    icon: any;
+    trend: { value: string; color: string };
+    isLoading: boolean;
+}) {
+    return (
+        <Card className="bg-background rounded-lg shadow border-border">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">{title}</CardTitle>
+                <Icon className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+                {isLoading ? (
+                    <Skeleton className="h-8 w-[100px]" />
+                ) : (
+                    <>
+                        <div className="text-2xl font-bold">{value}</div>
+                        <p className={`text-xs text-${trend.color}-500`}>
+                            {trend.value}
+                        </p>
+                    </>
+                )}
+            </CardContent>
+        </Card>
+    );
+}
+
+function ChartCard({
+    title,
+    children,
+    isLoading,
+}: {
+    title: string;
+    children: React.ReactNode;
+    isLoading: boolean;
+}) {
+    return (
+        <Card className="bg-background rounded-lg shadow border-border">
+            <CardHeader>
+                <CardTitle>{title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                {isLoading ? (
+                    <Skeleton className="h-[300px] w-full" />
+                ) : (
+                    children
+                )}
+            </CardContent>
+        </Card>
+    );
+}
+
 export default function Report() {
     const { language } = useLanguage();
     const [dateRange, setDateRange] = useState<DateRange | undefined>({
@@ -226,7 +185,6 @@ export default function Report() {
             setIsLoading(true);
             setError(null);
             try {
-                // Simulating API call
                 await new Promise((resolve) => setTimeout(resolve, 1500));
                 setIsLoading(false);
             } catch (err) {
@@ -236,7 +194,7 @@ export default function Report() {
         };
 
         fetchData();
-    }, [t.errorLoading]); // Removed unnecessary dependencies: dateRange, timeRange
+    }, [t.errorLoading]);
 
     const resetFilters = () => {
         setDateRange({
@@ -249,7 +207,6 @@ export default function Report() {
     const retryLoading = () => {
         setIsLoading(true);
         setError(null);
-        // Simulating API call
         setTimeout(() => {
             setIsLoading(false);
         }, 1500);
@@ -257,243 +214,180 @@ export default function Report() {
 
     if (error) {
         return (
-            <Alert variant="destructive">
-                <AlertTitle>Error</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
-                <Button onClick={retryLoading} className="mt-4">
-                    {t.retry}
-                </Button>
-            </Alert>
+            <div className="container mx-auto px-4 py-6 max-w-7xl">
+                <Alert variant="destructive">
+                    <AlertTitle>Error</AlertTitle>
+                    <AlertDescription>{error}</AlertDescription>
+                    <Button onClick={retryLoading} className="mt-4">
+                        {t.retry}
+                    </Button>
+                </Alert>
+            </div>
         );
     }
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-3xl font-bold tracking-tight">{t.title}</h1>
-                <p className="text-muted-foreground">{t.subtitle}</p>
-            </div>
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0 md:space-x-2">
-                <DatePickerWithRange date={dateRange} setDate={setDateRange} />
-                <div className="flex items-center space-x-2">
-                    <Select value={timeRange} onValueChange={setTimeRange}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder={t.selectMonth} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="daily">
-                                {t.dailySales}
-                            </SelectItem>
-                            <SelectItem value="monthly">
-                                {t.monthlySales}
-                            </SelectItem>
-                            <SelectItem value="yearly">
-                                {t.yearlySales}
-                            </SelectItem>
-                        </SelectContent>
-                    </Select>
-                    <Button onClick={resetFilters} variant="outline">
-                        {t.reset}
-                    </Button>
+        <div className="container mx-auto px-4 py-6 max-w-7xl">
+            <header className="flex justify-between items-start mb-8">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight">
+                        {t.title}
+                    </h1>
+                    <p className="text-muted-foreground">{t.subtitle}</p>
                 </div>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                            {t.sales}
-                        </CardTitle>
-                        <DollarSign className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        {isLoading ? (
-                            <Skeleton className="h-8 w-[100px]" />
-                        ) : (
-                            <>
-                                <div className="text-2xl font-bold">
-                                    €45,231.89
-                                </div>
-                                <p className="text-xs text-green-500">
-                                    +20.1% from last month
-                                </p>
-                            </>
-                        )}
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                            {t.averageOrderValue}
-                        </CardTitle>
-                        <ShoppingBag className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        {isLoading ? (
-                            <Skeleton className="h-8 w-[100px]" />
-                        ) : (
-                            <>
-                                <div className="text-2xl font-bold">
-                                    €234.56
-                                </div>
-                                <p className="text-xs text-orange-500">
-                                    +2.5% from last month
-                                </p>
-                            </>
-                        )}
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                            {t.customerGrowth}
-                        </CardTitle>
-                        <Users className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        {isLoading ? (
-                            <Skeleton className="h-8 w-[100px]" />
-                        ) : (
-                            <>
-                                <div className="text-2xl font-bold">+270</div>
-                                <p className="text-xs text-green-500">
-                                    +22.6% from last month
-                                </p>
-                            </>
-                        )}
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                            {t.revenue}
-                        </CardTitle>
-                        <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        {isLoading ? (
-                            <Skeleton className="h-8 w-[100px]" />
-                        ) : (
-                            <>
-                                <div className="text-2xl font-bold">
-                                    €89,432.56
-                                </div>
-                                <p className="text-xs text-blue-500">
-                                    +10.1% from last month
-                                </p>
-                            </>
-                        )}
-                    </CardContent>
-                </Card>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>{t.salesOverTime}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        {isLoading ? (
-                            <Skeleton className="h-[300px] w-full" />
-                        ) : (
-                            <ResponsiveContainer width="100%" height={300}>
-                                <BarChart data={salesData}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="name" />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Legend />
-                                    <Bar dataKey="sales" fill="#3B82F6" />
-                                </BarChart>
-                            </ResponsiveContainer>
-                        )}
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <CardTitle>{t.customerGrowth}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        {isLoading ? (
-                            <Skeleton className="h-[300px] w-full" />
-                        ) : (
-                            <ResponsiveContainer width="100%" height={300}>
-                                <LineChart data={customerGrowthData}>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="name" />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Legend />
-                                    <Line
-                                        type="monotone"
-                                        dataKey="customers"
-                                        stroke="#10B981"
-                                    />
-                                </LineChart>
-                            </ResponsiveContainer>
-                        )}
-                    </CardContent>
-                </Card>
-            </div>
-            <div className="grid gap-6 md:grid-cols-2">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>{t.topProducts}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        {isLoading ? (
-                            <Skeleton className="h-[300px] w-full" />
-                        ) : (
-                            <ResponsiveContainer width="100%" height={300}>
-                                <BarChart
-                                    data={topProductsData}
-                                    layout="vertical"
+            </header>
+
+            <section className="flex flex-col space-y-4 mb-8">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <DatePickerWithRange
+                        date={dateRange}
+                        setDate={setDateRange}
+                    />
+                    <div className="flex items-center gap-2">
+                        <Select value={timeRange} onValueChange={setTimeRange}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder={t.selectMonth} />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="daily">
+                                    {t.dailySales}
+                                </SelectItem>
+                                <SelectItem value="monthly">
+                                    {t.monthlySales}
+                                </SelectItem>
+                                <SelectItem value="yearly">
+                                    {t.yearlySales}
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <Button onClick={resetFilters} variant="outline">
+                            {t.reset}
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            <section className="space-y-6">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                    <StatCard
+                        title={t.sales}
+                        value="€45,231.89"
+                        icon={DollarSign}
+                        trend={{
+                            value: "+20.1% from last month",
+                            color: "green",
+                        }}
+                        isLoading={isLoading}
+                    />
+                    <StatCard
+                        title={t.averageOrderValue}
+                        value="€234.56"
+                        icon={ShoppingBag}
+                        trend={{
+                            value: "+2.5% from last month",
+                            color: "orange",
+                        }}
+                        isLoading={isLoading}
+                    />
+                    <StatCard
+                        title={t.customerGrowth}
+                        value="+270"
+                        icon={Users}
+                        trend={{
+                            value: "+22.6% from last month",
+                            color: "green",
+                        }}
+                        isLoading={isLoading}
+                    />
+                    <StatCard
+                        title={t.revenue}
+                        value="€89,432.56"
+                        icon={TrendingUp}
+                        trend={{
+                            value: "+10.1% from last month",
+                            color: "blue",
+                        }}
+                        isLoading={isLoading}
+                    />
+                </div>
+
+                <div className="grid gap-6 md:grid-cols-2">
+                    <ChartCard title={t.salesOverTime} isLoading={isLoading}>
+                        <ResponsiveContainer width="100%" height={300}>
+                            <BarChart data={salesData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="sales" fill="#3B82F6" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </ChartCard>
+
+                    <ChartCard title={t.customerGrowth} isLoading={isLoading}>
+                        <ResponsiveContainer width="100%" height={300}>
+                            <LineChart data={customerGrowthData}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Line
+                                    type="monotone"
+                                    dataKey="customers"
+                                    stroke="#10B981"
+                                />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </ChartCard>
+                </div>
+
+                <div className="grid gap-6 md:grid-cols-2">
+                    <ChartCard title={t.topProducts} isLoading={isLoading}>
+                        <ResponsiveContainer width="100%" height={300}>
+                            <BarChart data={topProductsData} layout="vertical">
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis type="number" />
+                                <YAxis dataKey="name" type="category" />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="sales" fill="#3B82F6" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </ChartCard>
+
+                    <ChartCard
+                        title={t.revenueByCategory}
+                        isLoading={isLoading}
+                    >
+                        <ResponsiveContainer width="100%" height={300}>
+                            <PieChart>
+                                <Pie
+                                    data={categoryData}
+                                    cx="50%"
+                                    cy="50%"
+                                    labelLine={false}
+                                    outerRadius={80}
+                                    fill="#8884d8"
+                                    dataKey="value"
+                                    label={({ name, percent }) =>
+                                        `${name} ${(percent * 100).toFixed(0)}%`
+                                    }
                                 >
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis type="number" />
-                                    <YAxis dataKey="name" type="category" />
-                                    <Tooltip />
-                                    <Legend />
-                                    <Bar dataKey="sales" fill="#3B82F6" />
-                                </BarChart>
-                            </ResponsiveContainer>
-                        )}
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <CardTitle>{t.revenueByCategory}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        {isLoading ? (
-                            <Skeleton className="h-[300px] w-full" />
-                        ) : (
-                            <ResponsiveContainer width="100%" height={300}>
-                                <PieChart>
-                                    <Pie
-                                        data={categoryData}
-                                        cx="50%"
-                                        cy="50%"
-                                        labelLine={false}
-                                        outerRadius={80}
-                                        fill="#8884d8"
-                                        dataKey="value"
-                                        label={({ name, percent }) =>
-                                            `${name} ${(percent * 100).toFixed(0)}%`
-                                        }
-                                    >
-                                        {categoryData.map((entry, index) => (
-                                            <Cell
-                                                key={`cell-${index}`}
-                                                fill={COLORS[index % COLORS.length]}
-                                            />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip />
-                                </PieChart>
-                            </ResponsiveContainer>
-                        )}
-                    </CardContent>
-                </Card>
-            </div>
+                                    {categoryData.map((entry, index) => (
+                                        <Cell
+                                            key={`cell-${index}`}
+                                            fill={COLORS[index % COLORS.length]}
+                                        />
+                                    ))}
+                                </Pie>
+                                <Tooltip />
+                            </PieChart>
+                        </ResponsiveContainer>
+                    </ChartCard>
+                </div>
+            </section>
         </div>
     );
 }

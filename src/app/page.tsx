@@ -35,11 +35,9 @@ export default function Home() {
 
     return (
         <main className="flex min-h-screen items-center justify-center bg-background dark:bg-gradient-to-br from-background to-secondary">
-            <div className="w-full max-w-md space-y-8 rounded-lg border border-border bg-card p-8 shadow-xl"
-            >
+            <div className="w-full max-w-md space-y-8 rounded-lg border border-border bg-card p-8 shadow-xl">
                 <div>
-                    <h1 className="text-center text-4xl font-bold text-card-foreground"
-                    >
+                    <h1 className="text-center text-4xl font-bold text-card-foreground">
                         Welcome Back
                     </h1>
                     <h2 className="mt-6 text-center text-2xl font-bold text-muted-foreground">
@@ -87,8 +85,7 @@ export default function Home() {
                     </div>
 
                     {error && (
-                        <p className="text-center text-sm text-red-500"
-                        >
+                        <p className="text-center text-sm text-red-500">
                             {error}
                         </p>
                     )}

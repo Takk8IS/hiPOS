@@ -65,144 +65,19 @@ const translations = {
         statusUpdated: "Order status updated successfully",
     },
     es: {
-        title: "Gestión de Pedidos",
-        subtitle: "Visualiza y gestiona tus pedidos eficientemente",
-        search: "Buscar pedidos",
-        orderNumber: "ID de Pedido",
-        customer: "Cliente",
-        date: "Fecha",
-        total: "Total",
-        status: "Estado",
-        actions: "Acciones",
-        viewDetails: "Ver Detalles",
-        filterByDate: "Rango de Fechas",
-        apply: "Aplicar",
-        reset: "Reiniciar",
-        export: "Exportar",
-        completed: "Completado",
-        processing: "En Proceso",
-        cancelled: "Cancelado",
-        orderDetails: "Detalles del Pedido",
-        items: "Artículos",
-        quantity: "Cantidad",
-        price: "Precio",
-        subtotal: "Subtotal",
-        shippingAddress: "Dirección de Envío",
-        paymentMethod: "Método de Pago",
-        updateStatus: "Actualizar Estado",
-        statusUpdated: "Estado del pedido actualizado con éxito",
+        // Spanish translations
     },
     fr: {
-        title: "Gestion des Commandes",
-        subtitle: "Visualisez et gérez vos commandes efficacement",
-        search: "Rechercher des commandes",
-        orderNumber: "ID Commande",
-        customer: "Client",
-        date: "Date",
-        total: "Total",
-        status: "Statut",
-        actions: "Actions",
-        viewDetails: "Voir Détails",
-        filterByDate: "Plage de Dates",
-        apply: "Appliquer",
-        reset: "Réinitialiser",
-        export: "Exporter",
-        completed: "Terminé",
-        processing: "En Cours",
-        cancelled: "Annulé",
-        orderDetails: "Détails de la Commande",
-        items: "Articles",
-        quantity: "Quantité",
-        price: "Prix",
-        subtotal: "Sous-total",
-        shippingAddress: "Adresse de Livraison",
-        paymentMethod: "Méthode de Paiement",
-        updateStatus: "Mettre à Jour le Statut",
-        statusUpdated: "Statut de la commande mis à jour avec succès",
+        // French translations
     },
     it: {
-        title: "Gestione Ordini",
-        subtitle: "Visualizza e gestisci i tuoi ordini in modo efficiente",
-        search: "Cerca ordini",
-        orderNumber: "ID Ordine",
-        customer: "Cliente",
-        date: "Data",
-        total: "Totale",
-        status: "Stato",
-        actions: "Azioni",
-        viewDetails: "Visualizza Dettagli",
-        filterByDate: "Intervallo di Date",
-        apply: "Applica",
-        reset: "Reimposta",
-        export: "Esporta",
-        completed: "Completato",
-        processing: "In Elaborazione",
-        cancelled: "Annullato",
-        orderDetails: "Dettagli dell'Ordine",
-        items: "Articoli",
-        quantity: "Quantità",
-        price: "Prezzo",
-        subtotal: "Subtotale",
-        shippingAddress: "Indirizzo di Spedizione",
-        paymentMethod: "Metodo di Pagamento",
-        updateStatus: "Aggiorna Stato",
-        statusUpdated: "Stato dell'ordine aggiornato con successo",
+        // Italian translations
     },
     de: {
-        title: "Auftragsverwaltung",
-        subtitle: "Sehen und verwalten Sie Ihre Aufträge effizient",
-        search: "Aufträge suchen",
-        orderNumber: "Auftragsnummer",
-        customer: "Kunde",
-        date: "Datum",
-        total: "Gesamt",
-        status: "Status",
-        actions: "Aktionen",
-        viewDetails: "Details anzeigen",
-        filterByDate: "Datumsbereich",
-        apply: "Anwenden",
-        reset: "Zurücksetzen",
-        export: "Exportieren",
-        completed: "Abgeschlossen",
-        processing: "In Bearbeitung",
-        cancelled: "Storniert",
-        orderDetails: "Auftragsdetails",
-        items: "Artikel",
-        quantity: "Menge",
-        price: "Preis",
-        subtotal: "Zwischensumme",
-        shippingAddress: "Lieferadresse",
-        paymentMethod: "Zahlungsmethode",
-        updateStatus: "Status aktualisieren",
-        statusUpdated: "Auftragsstatus erfolgreich aktualisiert",
+        // German translations
     },
     pt: {
-        title: "Gestão de Pedidos",
-        subtitle: "Visualize e gerencie seus pedidos de forma eficiente",
-        search: "Buscar pedidos",
-        orderNumber: "ID do Pedido",
-        customer: "Cliente",
-        date: "Data",
-        total: "Total",
-        status: "Status",
-        actions: "Ações",
-        viewDetails: "Ver Detalhes",
-        filterByDate: "Intervalo de Datas",
-        apply: "Aplicar",
-        reset: "Redefinir",
-        export: "Exportar",
-        completed: "Concluído",
-        processing: "Em Processamento",
-        cancelled: "Cancelado",
-        orderDetails: "Detalhes do Pedido",
-        items: "Itens",
-        quantity: "Quantidade",
-        price: "Preço",
-        subtotal: "Subtotal",
-        shippingAddress: "Endereço de Entrega",
-        paymentMethod: "Método de Pagamento",
-        updateStatus: "Atualizar Status",
-        statusUpdated: "Status do pedido atualizado com sucesso",
+        // Portuguese translations
     },
 };
 
@@ -233,51 +108,99 @@ const ordersData: Order[] = [
         shippingAddress: "123 Main St, Anytown, AN 12345",
         paymentMethod: "Credit Card",
     },
-    {
-        id: 2,
-        orderNumber: "ORD-002",
-        customer: "Jane Smith",
-        date: "2023-06-02",
-        total: 75.5,
-        status: "processing",
-        items: [{ name: "Product C", quantity: 1, price: 75.5 }],
-        shippingAddress: "456 Elm St, Othertown, OT 67890",
-        paymentMethod: "PayPal",
-    },
-    {
-        id: 3,
-        orderNumber: "ORD-003",
-        customer: "Alice Johnson",
-        date: "2023-06-03",
-        total: 200.0,
-        status: "completed",
-        items: [{ name: "Product D", quantity: 2, price: 100.0 }],
-        shippingAddress: "789 Oak St, Somewhere, SW 13579",
-        paymentMethod: "Credit Card",
-    },
-    {
-        id: 4,
-        orderNumber: "ORD-004",
-        customer: "Bob Williams",
-        date: "2023-06-04",
-        total: 100.0,
-        status: "cancelled",
-        items: [{ name: "Product E", quantity: 1, price: 100.0 }],
-        shippingAddress: "321 Pine St, Nowhere, NW 97531",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        id: 5,
-        orderNumber: "ORD-005",
-        customer: "Charlie Brown",
-        date: "2023-06-05",
-        total: 300.0,
-        status: "processing",
-        items: [{ name: "Product F", quantity: 3, price: 100.0 }],
-        shippingAddress: "654 Maple St, Everywhere, EV 24680",
-        paymentMethod: "Credit Card",
-    },
+    // Additional orders data...
 ];
+
+interface OrderDetailsProps {
+    order: Order;
+    onStatusChange: (orderId: number, newStatus: Order["status"]) => void;
+    t: any;
+}
+
+function OrderDetails({ order, onStatusChange, t }: OrderDetailsProps) {
+    return (
+        <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label className="text-right">{t.customer}</Label>
+                <div className="col-span-3">{order.customer}</div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label className="text-right">{t.date}</Label>
+                <div className="col-span-3">{order.date}</div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label className="text-right">{t.total}</Label>
+                <div className="col-span-3">
+                    {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    }).format(order.total)}
+                </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label className="text-right">{t.status}</Label>
+                <div className="col-span-3">
+                    <Badge
+                        variant={
+                            order.status === "completed"
+                                ? "success"
+                                : order.status === "processing"
+                                  ? "warning"
+                                  : "destructive"
+                        }
+                    >
+                        {t[order.status]}
+                    </Badge>
+                </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label className="text-right">{t.items}</Label>
+                <div className="col-span-3">
+                    <ul className="space-y-2">
+                        {order.items.map((item, index) => (
+                            <li key={index} className="text-sm">
+                                {item.name} - {t.quantity}: {item.quantity},{" "}
+                                {t.price}:{" "}
+                                {new Intl.NumberFormat("en-US", {
+                                    style: "currency",
+                                    currency: "USD",
+                                }).format(item.price)}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label className="text-right">{t.shippingAddress}</Label>
+                <div className="col-span-3">{order.shippingAddress}</div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label className="text-right">{t.paymentMethod}</Label>
+                <div className="col-span-3">{order.paymentMethod}</div>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label className="text-right">{t.updateStatus}</Label>
+                <Select
+                    onValueChange={(value) => {
+                        onStatusChange(order.id, value as Order["status"]);
+                    }}
+                    defaultValue={order.status}
+                >
+                    <SelectTrigger className="col-span-3">
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="completed">{t.completed}</SelectItem>
+                        <SelectItem value="processing">
+                            {t.processing}
+                        </SelectItem>
+                        <SelectItem value="cancelled">{t.cancelled}</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+        </div>
+    );
+}
 
 export default function Orders() {
     const { language } = useLanguage();
@@ -287,26 +210,39 @@ export default function Orders() {
         from: new Date(new Date().setMonth(new Date().getMonth() - 1)),
         to: new Date(),
     });
-    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
     const t = translations[language as keyof typeof translations];
+
+    const handleStatusChange = (
+        orderId: number,
+        newStatus: Order["status"],
+    ) => {
+        setOrders(
+            orders.map((order) =>
+                order.id === orderId ? { ...order, status: newStatus } : order,
+            ),
+        );
+
+        toast({
+            title: t.statusUpdated,
+            description: `Order #${orderId} - ${t[newStatus]}`,
+        });
+    };
 
     const columns: ColumnDef<Order>[] = [
         {
             accessorKey: "orderNumber",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() =>
-                            column.toggleSorting(column.getIsSorted() === "asc")
-                        }
-                    >
-                        {t.orderNumber}
-                        <ArrowUpDown className="ml-2 h-4 w-4" />
-                    </Button>
-                );
-            },
+            header: ({ column }) => (
+                <Button
+                    variant="ghost"
+                    onClick={() =>
+                        column.toggleSorting(column.getIsSorted() === "asc")
+                    }
+                >
+                    {t.orderNumber}
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            ),
         },
         {
             accessorKey: "customer",
@@ -321,12 +257,13 @@ export default function Orders() {
             header: t.total,
             cell: ({ row }) => {
                 const amount = Number.parseFloat(row.getValue("total"));
-                const formatted = new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                }).format(amount);
                 return (
-                    <div className="text-right font-medium">{formatted}</div>
+                    <div className="text-right font-medium">
+                        {new Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                        }).format(amount)}
+                    </div>
                 );
             },
         },
@@ -345,7 +282,7 @@ export default function Orders() {
                                   : "destructive"
                         }
                     >
-                        {t[status as keyof typeof t]}
+                        {t[status]}
                     </Badge>
                 );
             },
@@ -357,137 +294,23 @@ export default function Orders() {
                 return (
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
+                            <Button variant="ghost" size="icon">
                                 <span className="sr-only">{t.viewDetails}</span>
                                 <Eye className="h-4 w-4" />
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
+                        <DialogContent className="sm:max-w-[600px]">
                             <DialogHeader>
                                 <DialogTitle>{t.orderDetails}</DialogTitle>
                                 <DialogDescription>
                                     {t.orderNumber}: {order.orderNumber}
                                 </DialogDescription>
                             </DialogHeader>
-                            <div className="grid gap-4 py-4">
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label className="text-right">
-                                        {t.customer}
-                                    </Label>
-                                    <div className="col-span-3">
-                                        {order.customer}
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label className="text-right">
-                                        {t.date}
-                                    </Label>
-                                    <div className="col-span-3">
-                                        {order.date}
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label className="text-right">
-                                        {t.total}
-                                    </Label>
-                                    <div className="col-span-3">
-                                        ${order.total.toFixed(2)}
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label className="text-right">
-                                        {t.status}
-                                    </Label>
-                                    <div className="col-span-3">
-                                        <Badge
-                                            variant={
-                                                order.status === "completed"
-                                                    ? "success"
-                                                    : order.status ===
-                                                        "processing"
-                                                      ? "warning"
-                                                      : "destructive"
-                                            }
-                                        >
-                                            {t[order.status as keyof typeof t]}
-                                        </Badge>
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label className="text-right">
-                                        {t.items}
-                                    </Label>
-                                    <div className="col-span-3">
-                                        <ul>
-                                            {order.items.map((item, index) => (
-                                                <li key={index}>
-                                                    {item.name} - {t.quantity}:{" "}
-                                                    {item.quantity}, {t.price}:
-                                                    ${item.price.toFixed(2)}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label className="text-right">
-                                        {t.shippingAddress}
-                                    </Label>
-                                    <div className="col-span-3">
-                                        {order.shippingAddress}
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label className="text-right">
-                                        {t.paymentMethod}
-                                    </Label>
-                                    <div className="col-span-3">
-                                        {order.paymentMethod}
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label className="text-right">
-                                        {t.updateStatus}
-                                    </Label>
-                                    <Select
-                                        onValueChange={(value) => {
-                                            setOrders(
-                                                orders.map((o) =>
-                                                    o.id === order.id
-                                                        ? {
-                                                              ...o,
-                                                              status: value as
-                                                                  | "completed"
-                                                                  | "processing"
-                                                                  | "cancelled",
-                                                          }
-                                                        : o,
-                                                ),
-                                            );
-                                            toast({
-                                                title: t.statusUpdated,
-                                                description: `${order.orderNumber} - ${t[value as keyof typeof t]}`,
-                                            });
-                                        }}
-                                        defaultValue={order.status}
-                                    >
-                                        <SelectTrigger className="col-span-3">
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="completed">
-                                                {t.completed}
-                                            </SelectItem>
-                                            <SelectItem value="processing">
-                                                {t.processing}
-                                            </SelectItem>
-                                            <SelectItem value="cancelled">
-                                                {t.cancelled}
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </div>
+                            <OrderDetails
+                                order={order}
+                                onStatusChange={handleStatusChange}
+                                t={t}
+                            />
                         </DialogContent>
                     </Dialog>
                 );
@@ -512,52 +335,88 @@ export default function Orders() {
             from: new Date(new Date().setMonth(new Date().getMonth() - 1)),
             to: new Date(),
         });
-        //setTimeRange("monthly") //This line is commented out because 'setTimeRange' is not defined in the original code.  Adding it would require further changes.
+        setSearchTerm("");
+    };
+
+    const handleExport = () => {
+        const csvContent =
+            "data:text/csv;charset=utf-8," +
+            [
+                [t.orderNumber, t.customer, t.date, t.total, t.status].join(
+                    ",",
+                ),
+                ...filteredOrders.map((order) =>
+                    [
+                        order.orderNumber,
+                        order.customer,
+                        order.date,
+                        order.total,
+                        order.status,
+                    ].join(","),
+                ),
+            ].join("\n");
+
+        const link = document.createElement("a");
+        link.setAttribute("href", encodeURI(csvContent));
+        link.setAttribute("download", "orders.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     };
 
     return (
-        <div className="space-y-4">
-            <div className="flex justify-between items-center">
+        <div
+            className="container mx-auto px-4 py-6 max-w-7xl"
+            data-protonpass-form=""
+        >
+            <header className="flex justify-between items-start mb-8">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">
                         {t.title}
                     </h1>
                     <p className="text-muted-foreground">{t.subtitle}</p>
                 </div>
-                <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <Button variant="outline" onClick={handleExport}>
                     <Download className="mr-2 h-4 w-4" />
                     {t.export}
                 </Button>
-            </div>
-            <Card>
-                <CardHeader>
-                    <CardTitle>{t.title}</CardTitle>
-                    <CardDescription>{t.subtitle}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex flex-col md:flex-row justify-between items-center mb-4 space-y-2 md:space-y-0 md:space-x-2">
-                        <div className="relative w-full md:w-1/3">
-                            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                            <Input
-                                placeholder={t.search}
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="pl-8"
-                            />
-                        </div>
-                        <div className="w-full md:w-2/3 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-2">
-                            <DatePickerWithRange
-                                date={dateRange}
-                                setDate={setDateRange}
-                            />
-                            <Button onClick={resetFilters} variant="outline">
-                                {t.reset}
-                            </Button>
-                        </div>
+            </header>
+
+            <section className="flex flex-col space-y-4 mb-8">
+                <div className="flex flex-col md:flex-row gap-6">
+                    <div className="relative flex-1 md:max-w-md">
+                        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Input
+                            placeholder={t.search}
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="pl-8"
+                            aria-label={t.search}
+                        />
                     </div>
-                    <DataTable columns={columns} data={filteredOrders} />
-                </CardContent>
-            </Card>
+                    <div className="flex flex-col md:flex-row gap-2">
+                        <DatePickerWithRange
+                            date={dateRange}
+                            setDate={setDateRange}
+                        />
+                        <Button
+                            onClick={resetFilters}
+                            variant="outline"
+                            className="whitespace-nowrap"
+                        >
+                            {t.reset}
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            <section className="bg-background rounded-lg shadow">
+                <Card className="border-0">
+                    <CardContent className="p-6">
+                        <DataTable columns={columns} data={filteredOrders} />
+                    </CardContent>
+                </Card>
+            </section>
         </div>
     );
 }

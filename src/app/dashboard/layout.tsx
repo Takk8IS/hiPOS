@@ -1,57 +1,80 @@
-"use client"
+"use client";
 
-import { SidebarProvider } from "../context/SidebarContext"
-import Sidebar from "../components/Sidebar"
-import { SidebarTrigger } from "../components/SidebarTrigger"
-import type { ReactNode } from "react"
-import { useSidebar } from "../context/SidebarContext"
-import { UserProvider } from "../context/UserContext"
-import { useEffect, useState } from "react"
-import { useTheme } from "next-themes"
+import { SidebarProvider, useSidebar } from "../context/SidebarContext";
+import { UserProvider } from "../context/UserContext";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import Sidebar from "../components/Sidebar";
+import { SidebarTrigger } from "../components/SidebarTrigger";
+import { cn } from "@/lib/utils";
 
-function DashboardContent({ children }: { children: ReactNode }) {
-  const { isOpen } = useSidebar()
-  const [isMobile, setIsMobile] = useState(false)
-  const { theme } = useTheme()
+interface DashboardContentProps {
+    children: ReactNode;
+}
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+function DashboardContent({ children }: DashboardContentProps) {
+    const { isOpen } = useSidebar();
+    const [isMobile, setIsMobile] = useState(false);
+    const { theme, setTheme } = useTheme();
 
-  return (
-    <div className="flex h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-      <Sidebar />
-    <div
-    style={{
-        marginLeft: isOpen ? (isMobile ? 0 : 256) : isMobile ? 0 : 80,
-    }}
-    className="flex-1 overflow-auto"
-      >
-        <div className="flex justify-between items-center p-6">
-        <SidebarTrigger />
+    useEffect(() => {
+        // Handle initial screen size check
+        const checkIsMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        // Run check immediately
+        checkIsMobile();
+
+        // Set up resize listener
+        window.addEventListener("resize", checkIsMobile);
+
+        // Clean up
+        return () => window.removeEventListener("resize", checkIsMobile);
+    }, []);
+
+    return (
+        <div className="flex h-screen bg-background">
+            {/* Sidebar */}
+            <Sidebar />
+
+            {/* Main Content */}
+            <div
+                className={cn(
+                    "flex-1 overflow-auto transition-[margin] duration-300 ease-in-out",
+                    {
+                        "md:ml-64": isOpen,
+                        "md:ml-20": !isOpen,
+                    },
+                )}
+            >
+                {/* Header */}
+                <header className="flex justify-between items-center p-6">
+                    <div className="flex items-center space-x-4">
+                        <SidebarTrigger />
+                    </div>
+                </header>
+
+                {/* Main Content Area */}
+                <main className="container mx-auto px-4 py-6 max-w-7xl">
+                    {children}
+                </main>
+            </div>
         </div>
-        <main className="p-6">{children}</main>
-    </div>
-    </div>
-  )
+    );
 }
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <UserProvider>
-      <SidebarProvider>
-        <DashboardContent>{children}</DashboardContent>
-      </SidebarProvider>
-    </UserProvider>
-  )
+interface DashboardLayoutProps {
+    children: React.ReactNode;
 }
 
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
+    return (
+        <UserProvider>
+            <SidebarProvider>
+                <DashboardContent>{children}</DashboardContent>
+            </SidebarProvider>
+        </UserProvider>
+    );
+}

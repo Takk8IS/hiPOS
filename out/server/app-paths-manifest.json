@@ -1,0 +1,9 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/dashboard/customers/page": "app/dashboard/customers/page.js",
+  "/dashboard/providers/page": "app/dashboard/providers/page.js",
+  "/dashboard/modules/page": "app/dashboard/modules/page.js",
+  "/dashboard/settings/page": "app/dashboard/settings/page.js",
+  "/dashboard/report/page": "app/dashboard/report/page.js",
+  "/dashboard/procurements/page": "app/dashboard/procurements/page.js"
+}

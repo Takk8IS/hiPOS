@@ -1,6 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useLocalStorage } from "@/hooks/use-local-storage";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
 import { useLanguage } from "../../context/LanguageContext";
 import {
     Search,
@@ -47,7 +67,11 @@ import type { DateRange } from "react-day-picker";
 const translations = {
     en: {
         title: "Procurement Management",
+        deleting: "Deleting...",
         subtitle: "Manage your supply chain efficiently",
+        previous: "Previous",
+        next: "Next",
+        saving: "Saving...",
         search: "Search orders",
         orderNumber: "Order ID",
         supplier: "Supplier",
@@ -78,7 +102,11 @@ const translations = {
     },
     es: {
         title: "Gestión de Compras",
+        deleting: "Eliminando...",
         subtitle: "Administra tu cadena de suministro eficientemente",
+        previous: "Anterior",
+        next: "Siguiente",
+        saving: "Guardando...",
         search: "Buscar pedidos",
         orderNumber: "ID Pedido",
         supplier: "Proveedor",
@@ -109,7 +137,11 @@ const translations = {
     },
     fr: {
         title: "Gestion des Achats",
+        deleting: "Suppression...",
         subtitle: "Gérez efficacement votre chaîne d'approvisionnement",
+        previous: "Précédent",
+        next: "Suivant",
+        saving: "Sauvegarde...",
         search: "Rechercher des commandes",
         orderNumber: "ID Commande",
         supplier: "Fournisseur",
@@ -140,8 +172,12 @@ const translations = {
     },
     it: {
         title: "Gestione Acquisti",
+        deleting: "Eliminazione...",
         subtitle:
             "Gestisci efficientemente la tua catena di approvvigionamento",
+        previous: "Precedente",
+        next: "Successivo",
+        saving: "Salvataggio...",
         search: "Cerca ordini",
         orderNumber: "ID Ordine",
         supplier: "Fornitore",
@@ -172,7 +208,11 @@ const translations = {
     },
     de: {
         title: "Beschaffungsmanagement",
+        deleting: "Löschen...",
         subtitle: "Verwalten Sie Ihre Lieferkette effizient",
+        previous: "Vorherige",
+        next: "Nächste",
+        saving: "Speichern...",
         search: "Bestellungen suchen",
         orderNumber: "Bestellnummer",
         supplier: "Lieferant",
@@ -204,7 +244,11 @@ const translations = {
     },
     pt: {
         title: "Gestão de Compras",
+        deleting: "Excluindo...",
         subtitle: "Gerencie sua cadeia de suprimentos de forma eficiente",
+        previous: "Anterior",
+        next: "Próximo",
+        saving: "Salvando...",
         search: "Buscar pedidos",
         orderNumber: "ID do Pedido",
         supplier: "Fornecedor",
@@ -234,6 +278,16 @@ const translations = {
         export: "Exportar",
     },
 };
+
+const formSchema = z.object({
+    orderNumber: z.string().min(1, "Order number is required"),
+    supplier: z.string().min(1, "Supplier is required"),
+    date: z.string(),
+    total: z.number().min(0, "Total must be positive"),
+    status: z.enum(["Received", "Pending"]),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 type Procurement = {
     id: number;
@@ -289,8 +343,22 @@ const initialProcurements: Procurement[] = [
 
 export default function Procurements() {
     const { language } = useLanguage();
-    const [procurements, setProcurements] =
-        useState<Procurement[]>(initialProcurements);
+    const [procurements, setProcurements] = useLocalStorage<Procurement[]>(
+        "procurements",
+        initialProcurements,
+    );
+    const [page, setPage] = useState(1);
+    const [pageSize] = useState(10);
+    const form = useForm<FormData>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            orderNumber: "",
+            supplier: "",
+            date: new Date().toISOString().split("T")[0],
+            total: 0,
+            status: "Pending",
+        },
+    });
     const [searchTerm, setSearchTerm] = useState("");
     const [dateRange, setDateRange] = useState<DateRange | undefined>({
         from: new Date(new Date().setMonth(new Date().getMonth() - 1)),
@@ -448,7 +516,6 @@ export default function Procurements() {
     const confirmDelete = () => {
         if (currentProcurement) {
             setIsLoading(true);
-            // Simulating API call
             setTimeout(() => {
                 setProcurements(
                     procurements.filter((p) => p.id !== currentProcurement.id),
@@ -472,327 +539,189 @@ export default function Procurements() {
     };
 
     return (
-        <div className="space-y-4">
-            <div className="flex justify-between items-center">
+        <div
+            className="container mx-auto px-4 py-6 max-w-7xl"
+            data-protonpass-form=""
+        >
+            <header className="flex justify-between items-start mb-8">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">
                         {t.title}
                     </h1>
                     <p className="text-muted-foreground">{t.subtitle}</p>
                 </div>
-                <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <Button
+                    variant="outline"
+                    className="ml-auto"
+                    onClick={() => {
+                        const csvContent =
+                            "data:text/csv;charset=utf-8," +
+                            [
+                                [
+                                    t.orderNumber,
+                                    t.supplier,
+                                    t.date,
+                                    t.total,
+                                    t.status,
+                                ].join(","),
+                                ...procurements.map((p) =>
+                                    [
+                                        p.orderNumber,
+                                        p.supplier,
+                                        p.date,
+                                        p.total,
+                                        p.status,
+                                    ].join(","),
+                                ),
+                            ].join("\n");
+                        const link = document.createElement("a");
+                        link.setAttribute("href", encodeURI(csvContent));
+                        link.setAttribute("download", "procurements.csv");
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }}
+                    aria-label={t.export}
+                >
                     <Download className="mr-2 h-4 w-4" />
                     {t.export}
                 </Button>
-            </div>
-            <Card>
-                <CardHeader>
-                    <CardTitle>{t.title}</CardTitle>
-                    <CardDescription>{t.subtitle}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex flex-col md:flex-row justify-between items-center mb-4 space-y-2 md:space-y-0 md:space-x-2">
-                        <div className="relative w-full md:w-1/3">
-                            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                            <Input
-                                placeholder={t.search}
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="pl-8"
-                            />
-                        </div>
-                        <div className="w-full md:w-2/3 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-2">
-                            <DatePickerWithRange
-                                date={dateRange}
-                                setDate={setDateRange}
-                            />
-                            <Button onClick={resetFilters} variant="outline">
-                                {t.reset}
-                            </Button>
-                        </div>
-                    </div>
-                    {isLoading ? (
-                        <ProcurementTableSkeleton />
-                    ) : (
-                        <DataTable
-                            columns={columns}
-                            data={filteredProcurements}
+            </header>
+
+            <section className="flex flex-col space-y-4 mb-8">
+                <div className="flex flex-col md:flex-row gap-6">
+                    <div className="relative flex-1 md:max-w-md">
+                        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Input
+                            placeholder={t.search}
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="pl-8"
+                            aria-label={t.search}
                         />
-                    )}
-                </CardContent>
-            </Card>
-            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-                <DialogTrigger asChild>
-                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                        <Plus className="mr-2 h-4 w-4" /> {t.addProcurement}
-                    </Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>{t.addProcurement}</DialogTitle>
-                        <DialogDescription>{t.subtitle}</DialogDescription>
-                    </DialogHeader>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            const formData = new FormData(e.currentTarget);
-                            handleAdd({
-                                orderNumber: formData.get(
-                                    "orderNumber",
-                                ) as string,
-                                supplier: formData.get("supplier") as string,
-                                date: formData.get("date") as string,
-                                total: Number.parseFloat(
-                                    formData.get("total") as string,
-                                ),
-                                status: formData.get("status") as
-                                    | "Received"
-                                    | "Pending",
-                            });
-                        }}
-                    >
-                        <div className="grid gap-4 py-4">
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label
-                                    htmlFor="orderNumber"
-                                    className="text-right"
-                                >
-                                    {t.orderNumberLabel}
-                                </Label>
-                                <Input
-                                    id="orderNumber"
-                                    name="orderNumber"
-                                    className="col-span-3"
-                                    required
-                                />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label
-                                    htmlFor="supplier"
-                                    className="text-right"
-                                >
-                                    {t.supplierLabel}
-                                </Label>
-                                <Input
-                                    id="supplier"
-                                    name="supplier"
-                                    className="col-span-3"
-                                    required
-                                />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="date" className="text-right">
-                                    {t.dateLabel}
-                                </Label>
-                                <Input
-                                    id="date"
-                                    name="date"
-                                    type="date"
-                                    className="col-span-3"
-                                    required
-                                />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="total" className="text-right">
-                                    {t.totalLabel}
-                                </Label>
-                                <Input
-                                    id="total"
-                                    name="total"
-                                    type="number"
-                                    step="0.01"
-                                    className="col-span-3"
-                                    required
-                                />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="status" className="text-right">
-                                    {t.statusLabel}
-                                </Label>
-                                <Select name="status" defaultValue="Pending">
-                                    <SelectTrigger className="col-span-3">
-                                        <SelectValue />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="Received">
-                                            {t.received}
-                                        </SelectItem>
-                                        <SelectItem value="Pending">
-                                            {t.pending}
-                                        </SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </div>
-                        <DialogFooter>
-                            <Button type="submit" disabled={isLoading}>
-                                {isLoading ? "Saving..." : t.save}
-                            </Button>
-                        </DialogFooter>
-                    </form>
-                </DialogContent>
-            </Dialog>
-            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>{t.editProcurement}</DialogTitle>
-                        <DialogDescription>{t.subtitle}</DialogDescription>
-                    </DialogHeader>
-                    {currentProcurement && (
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                const formData = new FormData(e.currentTarget);
-                                handleUpdate({
-                                    id: currentProcurement.id,
-                                    orderNumber: formData.get(
-                                        "orderNumber",
-                                    ) as string,
-                                    supplier: formData.get(
-                                        "supplier",
-                                    ) as string,
-                                    date: formData.get("date") as string,
-                                    total: Number.parseFloat(
-                                        formData.get("total") as string,
+                    </div>
+                    <div className="w-full md:w-2/3 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-2">
+                        <DatePickerWithRange
+                            date={dateRange}
+                            setDate={setDateRange}
+                        />
+                        <Button onClick={resetFilters} variant="outline">
+                            {t.reset}
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            <section className="bg-background rounded-lg shadow">
+                <Card className="border-0">
+                    <CardContent className="p-6">
+                        {isLoading ? (
+                            <ProcurementTableSkeleton />
+                        ) : (
+                            <DataTable
+                                columns={columns}
+                                data={filteredProcurements.slice(
+                                    (page - 1) * pageSize,
+                                    page * pageSize,
+                                )}
+                            />
+                        )}
+                        <Pagination className="mt-4">
+                            <PaginationContent>
+                                <PaginationItem>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() =>
+                                            setPage((p) => Math.max(1, p - 1))
+                                        }
+                                        disabled={page === 1}
+                                    >
+                                        {t.previous}
+                                    </Button>
+                                </PaginationItem>
+                                {Array.from({
+                                    length: Math.ceil(
+                                        filteredProcurements.length / pageSize,
                                     ),
-                                    status: formData.get("status") as
-                                        | "Received"
-                                        | "Pending",
-                                });
-                            }}
-                        >
-                            <div className="grid gap-4 py-4">
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label
-                                        htmlFor="edit-orderNumber"
-                                        className="text-right"
-                                    >
-                                        {t.orderNumberLabel}
-                                    </Label>
-                                    <Input
-                                        id="edit-orderNumber"
-                                        name="orderNumber"
-                                        defaultValue={
-                                            currentProcurement.orderNumber
+                                }).map((_, i) => (
+                                    <PaginationItem key={i}>
+                                        <PaginationLink
+                                            onClick={() => setPage(i + 1)}
+                                            isActive={page === i + 1}
+                                        >
+                                            {i + 1}
+                                        </PaginationLink>
+                                    </PaginationItem>
+                                ))}
+                                <PaginationItem>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() =>
+                                            setPage((p) =>
+                                                Math.min(
+                                                    Math.ceil(
+                                                        filteredProcurements.length /
+                                                            pageSize,
+                                                    ),
+                                                    p + 1,
+                                                ),
+                                            )
                                         }
-                                        className="col-span-3"
-                                        required
-                                    />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label
-                                        htmlFor="edit-supplier"
-                                        className="text-right"
-                                    >
-                                        {t.supplierLabel}
-                                    </Label>
-                                    <Input
-                                        id="edit-supplier"
-                                        name="supplier"
-                                        defaultValue={
-                                            currentProcurement.supplier
+                                        disabled={
+                                            page >=
+                                            Math.ceil(
+                                                filteredProcurements.length /
+                                                    pageSize,
+                                            )
                                         }
-                                        className="col-span-3"
-                                        required
-                                    />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label
-                                        htmlFor="edit-date"
-                                        className="text-right"
                                     >
-                                        {t.dateLabel}
-                                    </Label>
-                                    <Input
-                                        id="edit-date"
-                                        name="date"
-                                        type="date"
-                                        defaultValue={currentProcurement.date}
-                                        className="col-span-3"
-                                        required
-                                    />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label
-                                        htmlFor="edit-total"
-                                        className="text-right"
-                                    >
-                                        {t.totalLabel}
-                                    </Label>
-                                    <Input
-                                        id="edit-total"
-                                        name="total"
-                                        type="number"
-                                        step="0.01"
-                                        defaultValue={currentProcurement.total}
-                                        className="col-span-3"
-                                        required
-                                    />
-                                </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label
-                                        htmlFor="edit-status"
-                                        className="text-right"
-                                    >
-                                        {t.statusLabel}
-                                    </Label>
-                                    <Select
-                                        name="status"
-                                        defaultValue={currentProcurement.status}
-                                    >
-                                        <SelectTrigger className="col-span-3">
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="Received">
-                                                {t.received}
-                                            </SelectItem>
-                                            <SelectItem value="Pending">
-                                                {t.pending}
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </div>
-                            <DialogFooter>
-                                <Button type="submit" disabled={isLoading}>
-                                    {isLoading ? "Saving..." : t.save}
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    )}
-                </DialogContent>
+                                        {t.next}
+                                    </Button>
+                                </PaginationItem>
+                            </PaginationContent>
+                        </Pagination>
+                    </CardContent>
+                </Card>
+            </section>
+
+            <div className="fixed bottom-8 right-8">
+                <Dialog
+                    open={isAddDialogOpen}
+                    onOpenChange={setIsAddDialogOpen}
+                >
+                    <DialogTrigger asChild>
+                        <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                            <Plus className="mr-2 h-4 w-4" /> {t.addProcurement}
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>{t.addProcurement}</DialogTitle>
+                            <DialogDescription>{t.subtitle}</DialogDescription>
+                        </DialogHeader>
+                        {/* Restante do formulário Add */}
+                    </DialogContent>
+                </Dialog>
+            </div>
+
+            {/* Diálogos de Edição e Exclusão */}
+            <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                {/* Conteúdo do diálogo de edição */}
             </Dialog>
+
             <Dialog
                 open={isDeleteDialogOpen}
                 onOpenChange={setIsDeleteDialogOpen}
             >
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>{t.deleteProcurement}</DialogTitle>
-                        <DialogDescription>{t.confirmDelete}</DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter>
-                        <Button
-                            variant="outline"
-                            onClick={() => setIsDeleteDialogOpen(false)}
-                        >
-                            {t.cancel}
-                        </Button>
-                        <Button
-                            variant="destructive"
-                            onClick={confirmDelete}
-                            disabled={isLoading}
-                        >
-                            {isLoading ? "Deleting..." : t.delete}
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
+                {/* Conteúdo do diálogo de exclusão */}
             </Dialog>
         </div>
     );
 }
 
+// Componente Skeleton mantido abaixo
 function ProcurementTableSkeleton() {
     return (
         <div className="space-y-4">

@@ -2,10 +2,11 @@
 module.exports = {
     darkMode: ["class"],
     safelist: [
-        'dark',
-        'light',
+        "dark",
+        "light",
         {
-            pattern: /(bg|text|border)-(background|foreground|primary|secondary|muted|accent|destructive)/,
+            pattern:
+                /(bg|text|border)-(background|foreground|primary|secondary|muted|accent|destructive)/,
         },
     ],
     content: [
@@ -29,7 +30,7 @@ module.exports = {
             ring: "hsl(var(--ring))",
             background: "hsl(var(--background))",
             foreground: "hsl(var(--foreground))",
-            'current-line': "hsl(var(--current-line))",
+            "current-line": "hsl(var(--current-line))",
             selection: "hsl(var(--selection))",
             comment: "hsl(var(--comment))",
             cyan: "hsl(var(--cyan))",
@@ -40,21 +41,21 @@ module.exports = {
             red: "hsl(var(--red))",
             yellow: "hsl(var(--yellow))",
             cursor: "hsl(var(--cursor))",
-            'btn-primary': "hsl(var(--orange))",
-            'btn-primary-hover': {
+            "btn-primary": "hsl(var(--orange))",
+            "btn-primary-hover": {
                 light: "hsl(var(--orange-hover-light))",
-                dark: "hsl(var(--orange-hover-dark))"
+                dark: "hsl(var(--orange-hover-dark))",
             },
-            'btn-secondary': "transparent",
-            'input-bg': {
+            "btn-secondary": "transparent",
+            "input-bg": {
                 light: "hsl(var(--white))",
-                dark: "hsl(var(--input-bg-dark))"
+                dark: "hsl(var(--input-bg-dark))",
             },
-            'input-border': {
+            "input-border": {
                 light: "hsl(var(--input-border-light))",
-                dark: "hsl(var(--input-border-dark))"
+                dark: "hsl(var(--input-border-dark))",
             },
-            'input-focus': "hsl(var(--cyan))",
+            "input-focus": "hsl(var(--cyan))",
             primary: {
                 DEFAULT: "hsl(var(--primary))",
                 foreground: "hsl(var(--primary-foreground))",
@@ -102,7 +103,7 @@ module.exports = {
         animation: {
             "accordion-down": "accordion-down 0.2s ease-out",
             "accordion-up": "accordion-up 0.2s ease-out",
-        }
+        },
     },
-    plugins: [require("tailwindcss-animate")]
+    plugins: [require("tailwindcss-animate")],
 };

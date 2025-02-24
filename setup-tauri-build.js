@@ -1,6 +1,6 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-import { execSync } from 'child_process';
+import { promises as fs } from "fs";
+import path from "path";
+import { execSync } from "child_process";
 
 const AUTHOR = "David C Cavalcante";
 const EMAIL = "davcavalcante@proton.me";
@@ -9,94 +9,92 @@ const CATEGORY = "BusinessAndFinance";
 
 // Configuration templates
 const tauriConfig = {
-"build": {
-    "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
-    "frontendDist": "../out",
-    "devPath": "http://localhost:3000",
-    "withGlobalTauri": true
-},
-"package": {
-    "productName": "hiPOS",
-    "version": "1.0.0"
-},
-"tauri": {
-    "allowlist": {
-    "all": true
+    build: {
+        beforeBuildCommand: "npm run build",
+        beforeDevCommand: "npm run dev",
+        frontendDist: "../out",
+        devPath: "http://localhost:3000",
+        withGlobalTauri: true,
     },
-    "bundle": {
-    "active": true,
-    "category": CATEGORY,
-    "copyright": `Copyright © ${new Date().getFullYear()} ${AUTHOR}`,
-    "deb": {
-        "depends": [
-        "libwebkit2gtk-4.1-0",
-        "libgtk-4-1",
-        "libappindicator3-1",
-        "librsvg2-2"
-        ]
+    package: {
+        productName: "hiPOS",
+        version: "1.0.0",
     },
-    "appimage": {
-        "bundleMediaFramework": true
-    },
-    "externalBin": [],
-    "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-    ],
-    "identifier": "com.hipos.dev",
-    "longDescription": DESCRIPTION,
-    "macOS": {
-        "frameworks": [],
-        "minimumSystemVersion": "10.13",
-        "signing": {
-        "identity": null,
-        "hardened-runtime": true,
-        "entitlements": null,
-        "entitlements-inherit": null,
-        "provisioningProfile": null
+    tauri: {
+        allowlist: {
+            all: true,
         },
-        "license": null
+        bundle: {
+            active: true,
+            category: CATEGORY,
+            copyright: `Copyright © ${new Date().getFullYear()} ${AUTHOR}`,
+            deb: {
+                depends: [
+                    "libwebkit2gtk-4.1-0",
+                    "libgtk-4-1",
+                    "libappindicator3-1",
+                    "librsvg2-2",
+                ],
+            },
+            appimage: {
+                bundleMediaFramework: true,
+            },
+            externalBin: [],
+            icon: [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico",
+            ],
+            identifier: "com.hipos.dev",
+            longDescription: DESCRIPTION,
+            macOS: {
+                frameworks: [],
+                minimumSystemVersion: "10.13",
+                signing: {
+                    identity: null,
+                    "hardened-runtime": true,
+                    entitlements: null,
+                    "entitlements-inherit": null,
+                    provisioningProfile: null,
+                },
+                license: null,
+            },
+            resources: ["../out/**/*"],
+            shortDescription: DESCRIPTION,
+            targets: ["app", "deb", "msi", "dmg", "updater"],
+            windows: {
+                certificateThumbprint: null,
+                digestAlgorithm: "sha256",
+                timestampUrl: "http://timestamp.digicert.com",
+                wix: {
+                    language: ["pt-BR"],
+                },
+            },
+        },
+        security: {
+            csp: null,
+        },
+        updater: {
+            active: true,
+            endpoints: [
+                "https://github.com/Takk8IS/hiPOS/releases/latest/download/latest.json",
+            ],
+            dialog: true,
+            pubkey: null,
+        },
+        windows: [
+            {
+                title: "hiPOS",
+                width: 1200,
+                height: 800,
+                resizable: true,
+                fullscreen: false,
+                maximized: false,
+            },
+        ],
     },
-    "resources": [
-        "../out/**/*"
-    ],
-    "shortDescription": DESCRIPTION,
-    "targets": ["app", "deb", "msi", "dmg", "updater"],
-    "windows": {
-        "certificateThumbprint": null,
-        "digestAlgorithm": "sha256",
-        "timestampUrl": "http://timestamp.digicert.com",
-        "wix": {
-        "language": ["pt-BR"]
-        }
-    }
-    },
-    "security": {
-    "csp": null
-    },
-    "updater": {
-    "active": true,
-    "endpoints": [
-        "https://github.com/Takk8IS/hiPOS/releases/latest/download/latest.json"
-    ],
-    "dialog": true,
-    "pubkey": null
-    },
-    "windows": [
-    {
-        "title": "hiPOS",
-        "width": 1200,
-        "height": 800,
-        "resizable": true,
-        "fullscreen": false,
-        "maximized": false
-    }
-    ]
-}
 };
 
 const workflowYAML = `
@@ -132,7 +130,7 @@ release:
             aarch64-apple-darwin
             x86_64-unknown-linux-gnu
             x86_64-pc-windows-msvc
-            
+
     - name: Cache node_modules
         uses: actions/cache@v4
         with:
@@ -140,7 +138,7 @@ release:
         key: \${{ runner.os }}-node-\${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
             \${{ runner.os }}-node-
-            
+
     - name: Get Version
         id: version
         uses: notiz-dev/github-action-json-property@release
@@ -203,54 +201,54 @@ release:
 `.trim();
 
 async function writeFileIfNotExists(filePath, content) {
-try {
-    await fs.access(filePath);
-    console.log(`File ${filePath} already exists. Updating...`);
-    await fs.writeFile(filePath, content);
-} catch {
-    console.log(`Creating ${filePath}...`);
-    await fs.writeFile(filePath, content);
-}
+    try {
+        await fs.access(filePath);
+        console.log(`File ${filePath} already exists. Updating...`);
+        await fs.writeFile(filePath, content);
+    } catch {
+        console.log(`Creating ${filePath}...`);
+        await fs.writeFile(filePath, content);
+    }
 }
 
 async function setupBuildConfiguration() {
-try {
-    // Ensure directories exist
-    const workflowDir = path.join('.github', 'workflows');
-    const tauriDir = 'src-tauri';
-    
-    await fs.mkdir(workflowDir, { recursive: true });
-    await fs.mkdir(tauriDir, { recursive: true });
+    try {
+        // Ensure directories exist
+        const workflowDir = path.join(".github", "workflows");
+        const tauriDir = "src-tauri";
 
-    // Write workflow file
-    await writeFileIfNotExists(
-    path.join(workflowDir, 'release.yml'),
-    workflowYAML
-    );
+        await fs.mkdir(workflowDir, { recursive: true });
+        await fs.mkdir(tauriDir, { recursive: true });
 
-    // Write Tauri config
-    await writeFileIfNotExists(
-    path.join(tauriDir, 'tauri.conf.json'),
-    JSON.stringify(tauriConfig, null, 2)
-    );
+        // Write workflow file
+        await writeFileIfNotExists(
+            path.join(workflowDir, "release.yml"),
+            workflowYAML,
+        );
 
-    console.log('\nConfiguration completed successfully! 🎉');
-    console.log('\nNext steps:');
-    console.log('1. Commit and push the changes');
-    console.log('2. Create a new tag: git tag v1.0.0');
-    console.log('3. Push the tag: git push origin v1.0.0');
-    console.log('4. The GitHub Action will automatically build and release your app');
-    
-    console.log('\nNote: Your builds will be unsigned. Users may need to:');
-    console.log('- macOS: Use xattr -cr /Applications/hiPOS.app');
-    console.log('- Windows: Accept the "unknown publisher" warning');
-    console.log('- Linux: No special steps needed\n');
+        // Write Tauri config
+        await writeFileIfNotExists(
+            path.join(tauriDir, "tauri.conf.json"),
+            JSON.stringify(tauriConfig, null, 2),
+        );
 
-} catch (error) {
-    console.error('Error setting up build configuration:', error);
-    process.exit(1);
-}
+        console.log("\nConfiguration completed successfully! 🎉");
+        console.log("\nNext steps:");
+        console.log("1. Commit and push the changes");
+        console.log("2. Create a new tag: git tag v1.0.0");
+        console.log("3. Push the tag: git push origin v1.0.0");
+        console.log(
+            "4. The GitHub Action will automatically build and release your app",
+        );
+
+        console.log("\nNote: Your builds will be unsigned. Users may need to:");
+        console.log("- macOS: Use xattr -cr /Applications/hiPOS.app");
+        console.log('- Windows: Accept the "unknown publisher" warning');
+        console.log("- Linux: No special steps needed\n");
+    } catch (error) {
+        console.error("Error setting up build configuration:", error);
+        process.exit(1);
+    }
 }
 
 setupBuildConfiguration().catch(console.error);
-
